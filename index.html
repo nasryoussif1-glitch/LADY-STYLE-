@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LADY STYLE | ملابس حريمي</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fff8fb;
+      color: #333;
+    }
+
+    /* Navbar */
+    header {
+      background: #fff;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 15px #00000012;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #c2185b;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #c2185b;
+    }
+
+    .cart {
+      position: relative;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    #cartCount {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #c2185b;
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      background:
+        linear-gradient(#0005, #0005),
+        url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 21px;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      background: #c2185b;
+      color: white;
+      padding: 13px 30px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #9c1248;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 7%;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .title h2 {
+      color: #c2185b;
+      font-size: 32px;
+    }
+
+    .title p {
+      color: #777;
+      margin-top: 8px;
+    }
+
+    /* Categories */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .category {
+      background: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px #00000010;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .category:hover {
+      transform: translateY(-7px);
+    }
+
+    .category span {
+      font-size: 45px;
+    }
+
+    .category h3 {
+      margin-top: 15px;
+      color: #c2185b;
+    }
+
+    /* Products */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px #00000012;
+      transition: .3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    .product img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: #c2185b;
+      font-weight: bold;
+      font-size: 19px;
+      margin-bottom: 15px;
+    }
+
+    .add {
+      width: 100%;
+      padding: 11px;
+      border: none;
+      background: #c2185b;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .add:hover {
+      background: #9c1248;
+    }
+
+    /* Search */
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto 35px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    /* Cart */
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      left: -400px;
+      width: 360px;
+      height: 100%;
+      background: white;
+      z-index: 1000;
+      box-shadow: 5px 0 20px #0003;
+      padding: 25px;
+      transition: .4s;
+      overflow-y: auto;
+    }
+
+    .cart-panel.active {
+      left: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .close {
+      cursor: pointer;
+      font-size: 25px;
+      color: #c2185b;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .remove {
+      border: none;
+      background: #eee;
+      color: #c2185b;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart-total {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 25px 0;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #c2185b;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      display: none;
+      z-index: 2000;
+      box-shadow: 0 5px 20px #0003;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 35px;
+    }
+
+    footer h2 {
+      color: #f48fb1;
+      margin-bottom: 10px;
+    }
+
+    /* Responsive */
+    @media(max-width: 900px) {
+      .products,
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+    }
+
+    @media(max-width: 550px) {
+      .products,
+      .categories {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-panel {
+        width: 85%;
+      }
+
+      .hero {
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">LADY STYLE 👗</div>
+
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#categories">الأقسام</a>
+      <a href="#products">المنتجات</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+
+    <div class="cart" onclick="openCart()">
+      🛒
+      <span id="cartCount">0</span>
+    </div>
+  </header>
+
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div>
+      <h1>أناقتك تبدأ من هنا</h1>
+      <p>أحدث صيحات الموضة الحريمي في مكان واحد</p>
+      <a href="#products" class="btn">تسوقي الآن</a>
+    </div>
+  </section>
+
+
+  <!-- Categories -->
+  <section id="categories">
+
+    <div class="title">
+      <h2>الأقسام</h2>
+      <p>اختاري القسم المفضل لديكِ</p>
+    </div>
+
+    <div class="categories">
+
+      <div class="category">
+        <span>👗</span>
+        <h3>فساتين</h3>
+      </div>
+
+      <div class="category">
+        <span>👚</span>
+        <h3>بلوزات</h3>
+      </div>
+
+      <div class="category">
+        <span>👖</span>
+        <h3>بنطلونات</h3>
+      </div>
+
+      <div class="category">
+        <span>👜</span>
+        <h3>إكسسوارات</h3>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Products -->
+  <section id="products">
+
+    <div class="title">
+      <h2>أحدث المنتجات</h2>
+      <p>اختاري إطلالتك المفضلة</p>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input
+        type="text"
+        id="search"
+        placeholder="🔎 ابحثي عن منتج..."
+        onkeyup="searchProducts()"
+      >
+    </div>
+
+    <div class="products" id="productList">
+
+      <div class="product" data-name="فستان أسود">
+        <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=700&q=80">
+
+        <div class="product-info">
+          <h3>فستان أسود أنيق</h3>
+          <div class="price">850 جنيه</div>
+          <button class="add" onclick="addToCart('فستان أسود أنيق',850)">
+            أضيفي للسلة 🛒
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product" data-name="بلوزة حريمي">
+        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=80">
+
+        <div class="product-info">
+          <h3>بلوزة حريمي</h3>
+          <div class="price">450 جنيه</div>
+          <button class="add" onclick="addToCart('بلوزة حريمي',450)">
+            أضيفي للسلة 🛒
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product" data-name="بنطلون جينز">
+        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80">
+
+        <div class="product-info">
+          <h3>بنطلون جينز</h3>
+          <div class="price">600 جنيه</div>
+          <button class="add" onclick="addToCart('بنطلون جينز',600)">
+            أضيفي للسلة 🛒
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product" data-name="حقيبة نسائية">
+        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80">
+
+        <div class="product-info">
+          <h3>حقيبة نسائية</h3>
+          <div class="price">750 جنيه</div>
+          <button class="add" onclick="addToCart('حقيبة نسائية',750)">
+            أضيفي للسلة 🛒
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product" data-name="جاكيت حريمي">
+        <img src="https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=700&q=80">
+
+        <div class="product-info">
+          <h3>جاكيت حريمي</h3>
+          <div class="price">950 جنيه</div>
+          <button class="add" onclick="addToCart('جاكيت حريمي',950)">
+            أضيفي للسلة 🛒
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product" data-name="تيشيرت حريمي">
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=700&q=80">
+
+        <div class="product-info">
+          <h3>تيشيرت حريمي</h3>
+          <div class="price">350 جنيه</div>
+          <button class="add" onclick="addToCart('تيشيرت حريمي',350)">
+            أضيفي للسلة 🛒
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Cart -->
+  <div class="cart-panel" id="cartPanel">
+
+    <div class="cart-header">
+      <h2>🛒 سلة المشتريات</h2>
+      <span class="close" onclick="closeCart()">✕</span>
+    </div>
+
+    <div id="cartItems">
+      <p>السلة فارغة.</p>
+    </div>
+
+    <div class="cart-total">
+      الإجمالي: <span id="total">0</span> جنيه
+    </div>
+
+    <button class="btn" style="width:100%" onclick="checkout()">
+      إتمام الطلب
+    </button>
+
+  </div>
+
+
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    ✅ تمت إضافة المنتج للسلة
+  </div>
+
+
+  <!-- Footer -->
+  <footer id="contact">
+    <h2>LADY STYLE 👗</h2>
+    <p>متجر ملابس حريمي لأحدث إطلالاتك</p>
+    <br>
+    <p>📞 01000000000</p>
+    <p>📧 info@ladystyle.com</p>
+    <br>
+    <p>© 2026 LADY STYLE - جميع الحقوق محفوظة</p>
+  </footer>
+
+
+  <script>
+
+    let cart = [];
+
+    function addToCart(name, price) {
+
+      cart.push({
+        name: name,
+        price: price
+      });
+
+      updateCart();
+
+      showNotification();
+    }
+
+
+    function updateCart() {
+
+      const cartItems = document.getElementById("cartItems");
+      const cartCount = document.getElementById("cartCount");
+      const totalElement = document.getElementById("total");
+
+      cartCount.innerText = cart.length;
+
+      if(cart.length === 0) {
+        cartItems.innerHTML = "<p>السلة فارغة.</p>";
+        totalElement.innerText = "0";
+        return;
+      }
+
+      cartItems.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+
+        total += item.price;
+
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong>
+              <br>
+              ${item.price} جنيه
+            </div>
+
+            <button class="remove" onclick="removeItem(${index})">
+              حذف
+            </button>
+          </div>
+        `;
+      });
+
+      totalElement.innerText = total;
+    }
+
+
+    function removeItem(index) {
+
+      cart.splice(index,1);
+
+      updateCart();
+    }
+
+
+    function openCart() {
+
+      document
+        .getElementById("cartPanel")
+        .classList.add("active");
+    }
+
+
+    function closeCart() {
+
+      document
+        .getElementById("cartPanel")
+        .classList.remove("active");
+    }
+
+
+    function showNotification() {
+
+      const notification =
+        document.getElementById("notification");
+
+      notification.style.display = "block";
+
+      setTimeout(() => {
+        notification.style.display = "none";
+      }, 2000);
+    }
+
+
+    function searchProducts() {
+
+      const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+      const products =
+        document.querySelectorAll(".product");
+
+      products.forEach(product => {
+
+        const name =
+          product.dataset.name.toLowerCase();
+
+        if(name.includes(search)) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+
+      });
+    }
+
+
+    function checkout() {
+
+      if(cart.length === 0) {
+        alert("السلة فارغة!");
+        return;
+      }
+
+      alert(
+        "تم تسجيل طلبك بنجاح ❤️\nسنتواصل معك لتأكيد الطلب."
+      );
+
+      cart = [];
+
+      updateCart();
+
+      closeCart();
+    }
+
+  </script>
+
+</body>
+</html>
